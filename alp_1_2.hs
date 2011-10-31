@@ -76,10 +76,10 @@ timesTable (rows, cols) = "\t| " ++ showCols cols ++ "\n" ++ tab ++ "+-" ++ unde
   Zusatzfrage (0 Punkte): Kommt man auch ganz ohne if-then-else-Ausdruck aus?
 -}
 
--- test x y z = if x <= y then True else False
+test x y z = if x <= y then True else False
 
 -- Zusatz:
-test x y z = x <= y
+test' x y z = x <= y
 
 {-
   11)
