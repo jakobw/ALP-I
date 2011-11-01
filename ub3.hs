@@ -24,6 +24,12 @@
   Schreiben Sie eine Funktion, die berechnet, wie viele Zahlen in einer Liste von Integer-Werten kleiner als der Durchschnittswert sind.
 -}
 
+smallerThanAvg :: [Integer] -> Int
+smallerThanAvg n
+  | n == [] = error "empty list"
+  | otherwise = length [ x | x <- n, realToFrac x < average n ]
+  where average n = realToFrac (sum n) / realToFrac (length n)
+
 {-
   14)
   Listen der beiden folgenden Datentypen
