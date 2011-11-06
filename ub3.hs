@@ -42,6 +42,16 @@ smallerThanAvg n
   (b) Erweitern Sie die Funktion so, dass der Preis für jeden gekauften Artikel der Ein- kaufsliste auf Cent gerundet wird.
 -}
 
+type Einkaufsliste = [(String, Float)]
+type Preisliste    = [(String, Float)]
+
+preis :: Preisliste -> Einkaufsliste -> (Float, [String])
+preis pl el = (calculatePrice pl, notFound pl el)
+  where
+    calculatePrice []     = 0
+    calculatePrice (x:xs) = snd x + calculatePrice xs
+    notFound pl el        = map fst (filter (\x -> not (elem (fst x) (map fst pl))) el)
+
 {-
   15)
   Die folgende Funktion iter wendet eine Funktion f n-mal hintereinander auf ein Ar- gument x an. Zum Beispiel liefert iter 3 f x das Ergebnis f(f(f(x))), das man in der Mathematik manchmal als f3(x) oder noch genauer f(3)(x) schreibt, damit man es nicht mit der Potenz (f(x))3 verwechselt.
