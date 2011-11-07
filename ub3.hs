@@ -83,6 +83,22 @@ iter' n f
   (b) Bestimmen Sie die kleinste Zahl x, fu虉r die iter 3 (logBase 2) x >= 2 ist.
 -}
 
+-- a) 32
+smallestLog :: Int
+smallestLog = findSmallest 0
+  where
+    findSmallest n
+      | logBase 2 (realToFrac n) >= 5 = n
+      | otherwise = findSmallest (succ n)
+
+-- b) 65536
+smallestLog' :: Int
+smallestLog' = findSmallest 0
+  where
+    findSmallest n
+      | iter 3 (logBase 2) (realToFrac n) >= 2 = n
+      | otherwise = findSmallest (succ n)
+
 {-
   17)
   Das Potenzieren mit einer natu虉rlich Zahl als Exponent kann man als iteriertes Multi- plizierende懑宽皟nieren:xn :=x路x路x路路路xmitnFaktoren.
