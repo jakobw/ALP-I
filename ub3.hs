@@ -126,11 +126,19 @@ plus :: Int -> Int -> Int
 plus a b = iter a (succ) b
 
 {-
+  18)
   (a) Jemand hat die Funktion g = iter 23 deí¯¿í°ƒniert. Wie koÌˆnnen Sie das Argument 23 aus der Funktion g herausí¯¿í°ƒnden? Schreiben Sie eine Funktion entdecke, die fuÌˆr alle n â‰¥ 0 die folgende Beziehung erfuÌˆllt:
   entdecke (iter n) == n,
   (b) Addition: Schreiben Sie eine Funktion sumiter mit der Eigenschaft
   sumiter (iter a) (iter b) == iter (a+b), fuÌˆr alle a, b â‰¥ 0.
   (c) Multiplikation: Schreiben Sie eine analoge Funktion proditer fuÌˆr das Produkt von a und b.
-  turm x k=xâ†‘k:=x
-  ,
 -}
+
+-- a)
+entdecke f = f succ 0
+
+-- b)
+sumiter iterA iterB fn x = iterA fn (iterB fn x)
+
+-- c)
+proditer iterA iterB = iterA.iterB
