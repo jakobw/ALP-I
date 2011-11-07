@@ -62,6 +62,19 @@ preis pl el = (calculatePrice pl, notFound pl el)
   (c) Lösen Sie Aufgabe 4b (Zinseszinsen) mit Hilfe der Funktion iter und der Lösung von Aufgabe 4a. (Achten Sie auf die Reihenfolge der Argumente.)
 -}
 
+-- a)
+iter :: Int -> (a -> a) -> a -> a
+iter n f x
+  | n == 0 = x
+  | n > 0  = f (iter (n-1) f x)
+
+-- b)
+iter' :: Int -> (a -> a) -> (a -> a)
+iter' n f
+  | n <= 0 = error "Cannot apply function less than once."
+  | n == 1 = f
+  | otherwise = f.iter' (n-1) f
+
 {-
   16)
   Die Funktion logBase a x = loga x berechnet den Logarithmus von x zur Basis a; das
