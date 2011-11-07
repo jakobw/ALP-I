@@ -111,6 +111,20 @@ smallestLog' = findSmallest 0
   (c) Welche Funktion muss man iterieren, damit man die Summenfunktion plus a b = a + b erhaÌˆlt? Schreiben Sie eine entsprechende Funktionsdeí¯¿í°ƒnition fuÌˆr plus.
 -}
 
+-- a)
+potenz x n = iter n (x*) 1
+
+turm :: Int -> Int -> Int
+turm x k = iter k (potenz x) x
+
+-- b)
+mal :: Int -> Int -> Int
+mal a b = iter a (+ b) 0
+
+-- c)
+plus :: Int -> Int -> Int
+plus a b = iter a (succ) b
+
 {-
   (a) Jemand hat die Funktion g = iter 23 deí¯¿í°ƒniert. Wie koÌˆnnen Sie das Argument 23 aus der Funktion g herausí¯¿í°ƒnden? Schreiben Sie eine Funktion entdecke, die fuÌˆr alle n â‰¥ 0 die folgende Beziehung erfuÌˆllt:
   entdecke (iter n) == n,
