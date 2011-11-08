@@ -22,3 +22,14 @@ takeWhile' p (x:xs)
 
 splitAt' :: Int -> [a] -> ([a], [a])
 splitAt' n x  =  (take n x, drop n x)
+
+{-
+  21)
+  Welchen Typ hat der Ausdruck map (`zinsen` 2.25) im Zusammenhang von Aufgabe 4? Was bewirkt diese Funktion?
+-}
+
+zinsen kapital zinsfuß = kapital * zinsfuß * 0.01
+
+blah :: [Double] -> [Double]
+blah = map (`zinsen` 2.25)
+-- Die Funktion berechnet die Zinsen zu einer Liste aus Kapitalangaben mit dem vorgegebenen Zinsfuß 2.25. (2.25 gibt den Wert für zinsfuß vor, weil zinsen als Infix-Funktion geschrieben ist.)
