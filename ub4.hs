@@ -5,3 +5,20 @@
 
 length' :: [a] -> Int
 length' a = sum (map (\_ -> 1) a)
+
+{-
+  20)
+  Definieren Sie die Funktionen
+        takeWhile :: (a -> Bool) -> [a] -> [a]
+        splitAt :: Int -> [a] -> ([a],[a])
+  Der Ausdruck takeWhile p x erzeugt das Anfangsstück einer Liste x, solange die Elemente das Prädikat p erfüllen. splitAt n x spaltet die Liste x nach den ersten n Elementen in zwei Teile auf. (Diese Funktionen sind in Haskell schon definiert. Zum Testen müssen Sie daher andere Funktionennamen wählen.)
+-}
+
+takeWhile' :: (a -> Bool) -> [a] -> [a]
+takeWhile' _ [] = []
+takeWhile' p (x:xs)
+  | p x = x:takeWhile' p xs
+  | otherwise = []
+
+splitAt' :: Int -> [a] -> ([a], [a])
+splitAt' n x  =  (take n x, drop n x)
