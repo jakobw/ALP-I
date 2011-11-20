@@ -39,3 +39,15 @@ fC = \ a b c -> toEnum $ length $ filter (\ x -> fromInteger x > (fromInteger $ 
 -- d)
 fD :: Integer -> Integer -> Integer -> Integer
 fD = (\ g x y z -> x^3 - g (x + g (y - g z) + g (z^2))) (\ x -> 2*x^2 + 10*x + 1)
+
+{-
+  29)
+  Bei diesem Sortierverfahren wird das kleinste Element einer Liste ausgewählt und an den Anfang gestellt; die restlichen Elemente werden rekursiv sortiert. Programmieren Sie dieses Sortierverfahren in Haskell.
+-}
+
+sort' :: (Ord a) => [a] -> [a]
+sort' [] = []
+sort' x = minimum x : sort' (rest x)
+  where
+    minX = minimum x
+    rest (x:xs) = if x == minX then xs else x:rest xs
