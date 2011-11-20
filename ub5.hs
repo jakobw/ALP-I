@@ -15,6 +15,7 @@ biggerThanAVG3 a b c = sum (map (\x -> if fromIntegral x > avg3 a b c then 1 els
     avg3 :: Integer->Integer->Integer->Double
     avg3 a b c = fromIntegral (a+b+c) / 3
 {-
+  26)
   Wandeln Sie folgende Funktionsdefinitionen in anonyme Funktionen um, ohne lokale Definitionen mit where oder let zu verwenden. Ihre Lösung soll mit f = \. . . beginnen.
     (a) Die Funktion f = biggerThanAVG3 von Aufgabe 12a (3. Übungsblatt)
     (b) Die Funktion f von Aufgabe 12b (3. Übungsblatt)
