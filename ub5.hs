@@ -65,3 +65,31 @@ plusplus x y = foldr (:) y $ foldr (:) x []
 -- b)
 concat' :: [[a]] -> [a]
 concat' = foldr1 (++)
+
+{-
+  32)
+  Welche der folgenden Funktionen ersetzt jedes Vorkommen eines bestimmten Wortes in einer Liste von Wörtern durch eine Folge von Sternen? Bestimmen Sie für jede Funktion, ob Sie überhaupt nach den Haskell-Regeln gültig ist, und stellen Sie gegebenenfalls ihren Typ fest.
+-}
+
+wiederhole n x = [ x | k <- [1 .. n]] -- = die Standardfunktion replicate
+ersetzeWort unwort w
+  | unwort == w = wiederhole (length unwort) '*'
+  | otherwise = w
+
+zensiere1, zensiere5, zensiere6 :: String -> [String] -> [String]
+zensiere1 unwort = map (ersetzeWort unwort) -- funktioniert
+
+zensiere2, zensiere8 :: [String] -> [String -> String]
+zensiere2 unwort = map ersetzeWort unwort -- nimmt eine Liste von Strings an und gibt eine Liste von ersetzeWort Funktionen mit vorgegebenem Unwort-Parameter zurück... nicht das, was wir wollten.
+
+-- zensiere3 unwort = map unwort . ersetzeWort
+
+-- zensiere4 unwort = map . ersetzeWort unwort
+
+zensiere5 = map . ersetzeWort -- funktioniert
+
+zensiere6 unwort = (map . ersetzeWort) unwort -- funktioniert
+
+-- zensiere7 unwort = ersetzeWort unwort . map
+
+zensiere8 = map ersetzeWort -- == zensiere2
