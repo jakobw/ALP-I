@@ -51,3 +51,17 @@ sort' x = minimum x : sort' (rest x)
   where
     minX = minimum x
     rest (x:xs) = if x == minX then xs else x:rest xs
+
+{-
+  30)
+  (a) Definieren Sie die Funktion ++ durch eine geeignete Faltung.
+  (b) Bei der Lösung von Aufgabe 9 war eine Funktion hilfreich, die eine Liste von Zeichenketten zu einer einzigen Zeichenkette zusammenfügt (In der Musterlösung heißt diese Funktion aneinander:: [String] -> String, in Haskell gibt es dafür die Standardfunktion concat:: [[a]] -> [a].) Definieren Sie diese Funktion durch Faltung.
+-}
+
+-- a)
+plusplus :: [a] -> [a] -> [a]
+plusplus x y = foldr (:) y $ foldr (:) x []
+
+-- b)
+concat' :: [[a]] -> [a]
+concat' = foldr1 (++)
