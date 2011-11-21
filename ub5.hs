@@ -41,6 +41,22 @@ fD :: Integer -> Integer -> Integer -> Integer
 fD = (\ g x y z -> x^3 - g (x + g (y - g z) + g (z^2))) (\ x -> 2*x^2 + 10*x + 1)
 
 {-
+  27)
+  Die Funktionen scanr und scanl liefern eine Liste mit allen Zwischenergebnissen der Funktion foldr beziehungsweise foldl:
+       scanr:: (a -> b -> b) -> b -> [a] -> [b]
+       scanl:: (b -> a -> b) -> b -> [a] -> [b]
+       scanr op z []     = [z]
+       scanr op z (x:xs) = (x `op` q) : q q:qs
+                             where (q:qs) = scanr op z xs
+       scanl op a []     = [a]
+       scanl op a (x:xs) = a : scanl op (a `op` x) xs
+  Eine Funktion soll berechnen, wie sich ein Anfangskapital k0 über mehrere Jahre entwickelt, wenn die Folge [z1, z2, . . . , zn] der jährlichen Verzinsungen gegeben ist. Verwenden Sie dazu die Funktion scanr oder scanl, sowie geeignete Funktionen von Aufgabe 4.
+-}
+
+zinsen kapital zinsfuß = kapital * zinsfuß * 0.01
+capitalGrowth c = scanl (\ c i -> c + zinsen c i) c
+
+{-
   29)
   Bei diesem Sortierverfahren wird das kleinste Element einer Liste ausgewählt und an den Anfang gestellt; die restlichen Elemente werden rekursiv sortiert. Programmieren Sie dieses Sortierverfahren in Haskell.
 -}
