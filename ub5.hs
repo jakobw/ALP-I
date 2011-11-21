@@ -67,6 +67,44 @@ concat' :: [[a]] -> [a]
 concat' = foldr1 (++)
 
 {-
+  31)
+  (a) Definieren Sie eine Funktion, die eine Liste von Listen mit einem Verbindungsglied zusammenfügt. Das Verbindungsglied soll zwischen den Elementen erscheinen, aber nicht am Ende nach dem letzten Element. Hier sind Beispiele:
+        verbinden :: [a] -> [[a]] -> [a]
+        verbinden ", " [] = ""
+        verbinden ", " ["eins"] = "eins"
+        verbinden ", " ["erstens","2.","drittens"] = "erstens, 2., drittens"
+  (b) Die Umkehrfunktion trennen :: [a] -> [a] -> [[a]] soll die Liste an den Stel- len trennen, wo das Verbindungsglied vorkommt, sodass für alle x die Gleichung verbinden x . trennen x = id gilt. Überlegen Sie, ob die Lösung immer ein- deutig ist. Beschreiben Sie klar und eindeutig (d.h., spezifizieren Sie), was Ihre Umkehrfunktion in jedem Fall machen soll.
+  (c) Definieren Sie die Umkehrfunktion nach Ihrer Spezifikation.
+  (d) Warum ist es unmöglich, durch eine Funktion trennen für alle x die Gleichung trennen x . verbinden x = id zu erfüllen? Gibt es Werte von x, für die man die Beziehung erfüllen kann?
+-}
+
+-- a)
+verbinden :: [a] -> [[a]] -> [a]
+verbinden conn = foldr (\ x acc -> if null acc then x else x ++ conn ++ acc) []
+
+-- b)
+{-
+  Die Funktion `trennen` trennt eine Liste [a] an einem Listenglied [b] auf und fügt die einzelnen Teile aus [a] zu einer Liste [[a]] zusammen.
+-}
+
+-- c)
+-- TODO: eleganter?
+trennen :: Eq a => [a] -> [a] -> [[a]]
+trennen _ [] = []
+trennen pattern x = el: trennen pattern (drop (length el + pLength) x)
+  where
+    el = getEl pattern x
+    pLength = length pattern
+
+    getEl _ [] = []
+    getEl pattern (x:xs) = x: if take pLength xs == pattern && pLength /= length xs then [] else getEl pattern xs
+
+-- d)
+{-
+  Eines der Elemente aus [[a]] könnte das Trennmuster enthalten und damit bewirken, dass beim Aufruf der Funktion `trennen` an der falschen Stelle getrennt wird. Ansonsten funktioniert auch `trennen x . verbinden x = id`.
+-}
+
+{-
   32)
   Welche der folgenden Funktionen ersetzt jedes Vorkommen eines bestimmten Wortes in einer Liste von Wörtern durch eine Folge von Sternen? Bestimmen Sie für jede Funktion, ob Sie überhaupt nach den Haskell-Regeln gültig ist, und stellen Sie gegebenenfalls ihren Typ fest.
 -}
