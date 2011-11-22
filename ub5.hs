@@ -76,7 +76,7 @@ sort' x = minimum x : sort' (rest x)
 
 -- a)
 plusplus :: [a] -> [a] -> [a]
-plusplus x y = foldr (:) y $ foldr (:) x []
+plusplus x y = foldr (:) y x
 
 -- b)
 concat' :: [[a]] -> [a]
