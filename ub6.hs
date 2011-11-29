@@ -20,3 +20,12 @@ filter'' p l = [x | x <- l, p x]
 -- c)
 deleteSpaces :: String -> String
 deleteSpaces = filter (/= ' ')
+
+{-
+  38)
+  Schreiben Sie eine Funktion mult zur Multiplikation zweier Zahlen, die das zweite Argument nicht auswertet, wenn das erste Argument 0 ist.
+-}
+
+mult :: Num a => a -> a -> a
+mult 0 _ = 0
+mult a b = a * b
