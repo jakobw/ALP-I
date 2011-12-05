@@ -75,3 +75,23 @@ fib n
   | otherwise = fib (n+2) - fib (n+1)
 
 -- [fib x | x <- [1..20]] => [1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597,2584,4181,6765]
+
+{-
+  41)
+  Nach einer alternativen Definition von Bäumen ist ein nichtleerer Baum entweder ein Blatt (ein einzelner Kno- ten ohne Kinder) oder ein innerer Knoten mit genau zwei Kindern.
+   data Baum' a = Blatt a
+                | Knoten a (Baum' a) (Baum' a)
+  ￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼Man kann einen solchen Baum kodieren, indem man augehend von der Wurzel einmal außen um den Baum herumgeht" und dabei jede Abwärtsbewegung (Down), jede Auf- wärtsbewegung (Up) und jeden Knoten notiert, wenn er zum erstenmal besucht wird. Das nebenstehende Beispiel liefert etwa den Kode 27D5D-2UD7UUD44D8UD5D7UD9UUU.
+  Schreiben Sie ein Programm, das diesen Kode für einen Baum vom Typ Baum' Int berechnet.
+-}
+
+data Baum' a = Blatt a
+  | Knoten a (Baum' a) (Baum' a)
+
+baumk = Knoten 27 (Knoten 5 (Blatt (-2)) (Blatt 7)) (Knoten 44 (Blatt 8) (Knoten 5 (Blatt 7) (Blatt 9)))
+
+encodeTree :: (Show a) => Baum' a -> String
+encodeTree (Blatt x) = show x
+encodeTree (Knoten x l r) = show x ++ encode l ++ encode r
+  where
+    encode b = "D" ++ encodeTree b ++ "U"
