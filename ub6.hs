@@ -22,6 +22,34 @@ deleteSpaces :: String -> String
 deleteSpaces = filter (/= ' ')
 
 {-
+  36)
+  (a) Schreiben Sie eine Funktion, die für eine Darstellung vom Typ Ausdruck (Vorle- sung vom 16. 11. 2011), die keine Variablen enthält, den durch den arithmetischen Ausdruck gegebenen Wert berechnet.
+  (b) Schreiben Sie eine Funktion, die als zusätzliche Eingabe eine Werteliste vom Typ [(String,Integer)] akzeptiert, wobei ein Element ("x",3) zum Beispiel bedeu- ten soll, dass die Variable mit Namen "x" den Wert 3 hat. Falls der Ausdruck eine Variable enthält, die nicht in der Liste vorkommt, soll die Funktion mit einer informativen Fehlermeldung abbrechen.
+-}
+data Ausdruck =
+    Konst Integer
+   |Var String
+   |Plus Ausdruck Ausdruck
+   |Mal Ausdruck Ausdruck
+  deriving Show
+
+-- a)
+eval :: Ausdruck -> Integer
+eval (Konst i)  = i
+eval (Plus a b) = eval a + eval b
+eval (Mal a b)  = eval a * eval b
+
+-- b)
+eval' :: Ausdruck -> [(String, Integer)] -> Integer
+eval' (Konst i) _  = i
+eval' (Var x) vars = getValue $ filter (\ (i, _) -> x == i) vars
+  where
+    getValue []         = error "Couldn't find variable."
+    getValue ((_, i):_) = i
+eval' (Plus a b) vars = eval' a vars + eval' b vars
+eval' (Mal a b) vars  = eval' a vars * eval' b vars
+
+{-
   38)
   Schreiben Sie eine Funktion mult zur Multiplikation zweier Zahlen, die das zweite Argument nicht auswertet, wenn das erste Argument 0 ist.
 -}
