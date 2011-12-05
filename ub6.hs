@@ -88,8 +88,6 @@ fib n
 data Baum' a = Blatt a
   | Knoten a (Baum' a) (Baum' a)
 
-baumk = Knoten 27 (Knoten 5 (Blatt (-2)) (Blatt 7)) (Knoten 44 (Blatt 8) (Knoten 5 (Blatt 7) (Blatt 9)))
-
 encodeTree :: (Show a) => Baum' a -> String
 encodeTree (Blatt x) = show x
 encodeTree (Knoten x l r) = show x ++ encode l ++ encode r
