@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -XFlexibleInstances #-} -- HUGS needs the option "-98"
 {-
   43)
   Schreiben Sie eine Funktion, die für einer Liste [a1, . . . , an] die gröÿte Summe ai + ai+1 + · · · + aj einer in ihr enthaltenen zusammenhängenden Teilfolge bestimmt. (Die Summe der leeren Folge ist 0.)
@@ -8,6 +9,44 @@ biggestSeq []     = 0
 biggestSeq (x:xs) = max (biggest (x:xs)) $ biggestSeq xs
   where
     biggest seq = maximum $ scanl1 (+) seq
+
+{-
+  46)
+  Wahrheitstafel für Boolesche Funktion (15 Punkte)
+  Schreiben Sie eine Funktion zum Erstellen einer Wahrheitstafel für Boo- lesche Funktionen Bool -> Bool -> · · · -> Bool. Beim Anwenden auf eine k-stellige Funktion soll für jede der 2k Belegungen der Parameter mit True oder False der Funktionswert tabelliert werden. Zum Beispiel könnte für die Funktion (\x y z -> x && y || z) das nebenstehende Ergebnis herauskommen. Die Stellenzahl k soll nicht als Parameter der Funktion verlangt werden.
+-}
+
+class Funk a where
+  stellenZahl :: a -> Int
+  multiuncurry :: a -> ([Bool] -> Bool)
+  multicurry :: ([Bool] -> Bool) -> a
+
+instance Funk Bool where
+  stellenZahl _     = 0
+  multiuncurry f [] = f
+  multicurry g      = g []
+
+instance (Funk a) => Funk (Bool -> a) where
+  stellenZahl f         = 1 + stellenZahl (f undefined)
+  multiuncurry f (x:xs) = multiuncurry (f x) xs
+  multicurry g x1       = multicurry g' where
+    g' xs = g (x1:xs)
+
+-- /type class magic
+
+truthTable :: Funk a => a -> String
+truthTable a = (foldr showRow [] . generateList . stellenZahl) a
+  where
+    boolToChar b = if b then 'T' else 'F'
+
+    generateList :: Int -> [[Bool]]
+    generateList 0 = [[]]
+    generateList n = [(x:xs) | x <- [True, False], xs <- generateList (n - 1)]
+
+    showRow bs row = foldr showArgs [] bs ++
+                     "| " ++ [boolToChar $ multiuncurry a bs] ++
+                     "\n" ++ row
+      where showArgs b args = [boolToChar b] ++ " " ++ args
 
 {-
   47)
