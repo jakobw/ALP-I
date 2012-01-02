@@ -47,3 +47,11 @@ einf i v (Knoten' iK iV l r)
   | i < iK = Knoten' iK iV (einf i v l) r
   | i > iK = Knoten' iK iV l $ einf i v r
 einf i v Leer = Knoten' i v Leer Leer
+
+-- 56)
+isBST :: Ord a => Suchbaum a b -> Bool
+isBST Leer = True
+isBST (Knoten' i _ l r) = check (< i) l && check (> i) r && isBST l && isBST r
+  where
+    check _ Leer = True
+    check p (Knoten' i _ l r) = p i && check p l && check p r
